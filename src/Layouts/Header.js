@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Dropdown, DropdownMenu, DropdownToggle, Form } from 'reactstrap';
+import { Link, navigate, useNavigate } from 'react-router-dom';
+import { Button, Dropdown, DropdownMenu, DropdownToggle, Form } from 'reactstrap';
 
 //import images
 import logoSm from "../assets/images/logo-sm.png";
@@ -13,17 +13,24 @@ import { createSelector } from 'reselect';
 
 const Header = ({ headerClass }) => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const selectDashboardData = createSelector(
         (state) => state.Layout,
         (sidebarVisibilitytype) => sidebarVisibilitytype.sidebarVisibilitytype
-      );
+    );
     // Inside your component
     const sidebarVisibilitytype = useSelector(selectDashboardData);
 
     const [search, setSearch] = useState(false);
     const toggleSearch = () => {
         setSearch(!search);
+    };
+    const handleLogout = () => {
+        // Clear any authentication tokens or session data here
+        // Example: localStorage.removeItem('authToken');
+        // Then redirect to the login page
+        navigate('/login')
     };
 
     const toggleMenuBtn = () => {
@@ -101,9 +108,13 @@ const Header = ({ headerClass }) => {
                         <div className="d-flex align-items-center justify-content-center w-100" style={{ height: '200px' }}>
                             <div className="header-watchlists text-center">
                                 <h1> Welcome to <span style={{ color: 'orange' }}>Watchlists</span></h1>
-                              
+
                             </div>
+
                         </div>
+                        <Button color="danger" onClick={handleLogout}>
+                            Logout
+                        </Button>
 
                         <div className="d-flex align-items-center">
                             <Dropdown isOpen={search} toggle={toggleSearch} className="d-md-none topbar-head-dropdown header-item">

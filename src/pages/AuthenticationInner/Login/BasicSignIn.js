@@ -9,7 +9,7 @@ import logoLight from "../../../assets/images/logo-light.png";
 
 
 const BasicSignIn = () => {
-document.title="Basic SignIn | Velzon - React Admin & Dashboard Template";
+document.title="Basic SignIn | YouTube - React Admin & Dashboard Template";
     return (
         <React.Fragment>
             <ParticlesAuth>
@@ -34,7 +34,7 @@ document.title="Basic SignIn | Velzon - React Admin & Dashboard Template";
                                     <CardBody className="p-4">
                                         <div className="text-center mt-2">
                                             <h5 className="text-primary">Welcome Back !</h5>
-                                            <p className="text-muted">Sign in to continue to Velzon.</p>
+                                            <p className="text-muted">Sign in to continue to YouTube.</p>
                                         </div>
                                         <div className="p-2 mt-4">
                                             <form action="#">

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Link, useNavigate  } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Button, Card, CardBody, Col, Container, DropdownItem, DropdownMenu, DropdownToggle, Form, Input, Label, Modal, ModalBody, Row, UncontrolledDropdown, FormFeedback } from 'reactstrap';
 import DeleteModal from "../../../Components/Common/DeleteModal";
 import { ToastContainer } from 'react-toastify';
@@ -29,7 +29,6 @@ const Team = () => {
     document.title = "Team | Velzon - React Admin & Dashboard Template";
 
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
 
     const selectteamData = createSelector(
@@ -202,14 +201,6 @@ const Team = () => {
             toggle();
         },
     });
-
-    const handleLogout = () => {
-        // Clear any authentication tokens or session data here
-        // Example: localStorage.removeItem('authToken');
-        // Then redirect to the login page
-        navigate('/login')
-    };
-
     return (
         <React.Fragment>
             <ToastContainer closeButton={false} />
@@ -234,9 +225,7 @@ const Team = () => {
                                         <Button color="secondary" onClick={() => handleTeamClicks()}>
                                             <i className="ri-add-fill me-1 align-bottom"></i> Add Movie
                                         </Button>
-                                        <Button color="danger" onClick={handleLogout}>
-                                            Logout
-                                        </Button>
+
                                     </div>
                                 </Col>
                             </Row>
