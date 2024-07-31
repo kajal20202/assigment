@@ -1,3 +1,3 @@
-Enter :-  - npm i
-          - npm start
+Enter :-  1) npm i
+          2) npm start
         
