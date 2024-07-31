@@ -61,7 +61,8 @@ const gallery = [
     },
     {
         id: 5,
-        img: smallImage5,
+        img: smallImage11,
+        userImage: avatar2,
         title: "Working from home little spot",
         auther: "Taps",
         likes: "2.2K",
@@ -106,7 +107,8 @@ const gallery = [
     },
     {
         id: 10,
-        img: smallImage10,
+        img: smallImage11,
+        userImage: avatar2,
         title: "Fun day at the Hill Station",
         auther: "Taps",
         likes: "2.2K",
@@ -177,7 +179,7 @@ const SearchGallery = [
     },
     {
         id: 5,
-        img: smallImage5,
+        img: smallImage11,
         title: "Working from home little spot",
         auther: "Taps",
         likes: "2.2K",
@@ -217,7 +219,7 @@ const SearchGallery = [
     },
     {
         id: 10,
-        img: smallImage10,
+        img: smallImage11,
         title: "Fun day at the Hill Station",
         auther: "Taps",
         likes: "2.2K",
@@ -252,8 +254,8 @@ const team = [
     },
     {
         id: 2,
-        backgroundImg: smallImage12,
-        userImage: null,
+        backgroundImg: smallImage11,
+        userImage: avatar2,
         userShortName: "HB",
         name: "Taps",
         designation: "1981",
@@ -278,7 +280,7 @@ const team = [
     {
         id: 5,
         backgroundImg: smallImage10,
-        userImage: null,
+        userImage: avatar4,
         userShortName: "ME",
         name: "All the Right Moves",
         designation: "1983",
@@ -287,7 +289,7 @@ const team = [
     {
         id: 6,
         backgroundImg: smallImage2,
-        userImage: avatar4,
+        userImage: avatar8,
         name: "Risky Business",
         designation: "1983",
 
@@ -295,7 +297,7 @@ const team = [
     {
         id: 7,
         backgroundImg: smallImage4,
-        userImage: null,
+        userImage: avatar5,
         userShortName: "NC",
         name: "Legend",
         designation: "1985",
@@ -320,7 +322,7 @@ const team = [
     {
         id: 10,
         backgroundImg: smallImage5,
-        userImage: null,
+        userImage: avatar3,
         userShortName: "DP",
         name: "Donald Palmer",
         designation: "1978",
@@ -337,7 +339,7 @@ const team = [
     {
         id: 12,
         backgroundImg: smallImage6,
-        userImage: null,
+        userImage: avatar6,
         userShortName: "MW",
         name: "Marie Ward",
         designation: "1987",

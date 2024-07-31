@@ -30,7 +30,6 @@ const Team = () => {
 
     const dispatch = useDispatch();
 
-
     const selectteamData = createSelector(
         (state) => state.Team.teamData,
         (teamData) => teamData
@@ -201,6 +200,7 @@ const Team = () => {
             toggle();
         },
     });
+
     return (
         <React.Fragment>
             <ToastContainer closeButton={false} />
@@ -223,9 +223,7 @@ const Team = () => {
                                 <Col className="col-sm-auto ms-auto">
                                     <div className="list-grid-nav hstack gap-1">
                                         <Button color="secondary" onClick={() => handleTeamClicks()}>
-                                            <i className="ri-add-fill me-1 align-bottom"></i> Add Movie
-                                        </Button>
-
+                                            <i className="ri-add-fill me-1 align-bottom"></i> Add Movie</Button>
                                     </div>
                                 </Col>
                             </Row>
@@ -249,52 +247,168 @@ const Team = () => {
                                                                 <Col>
                                                                     <div className="flex-shrink-0 me-2">
                                                                         <button type="button" className="btn btn-light btn-icon rounded-circle btn-sm favourite-btn" onClick={(e) => favouriteBtn(e.target)}>
-                                                                            <i className="ri-star-fill fs-16"></i>
+                                                                            <i className="ri-star-fill fs-14"></i>
                                                                         </button>
                                                                     </div>
                                                                 </Col>
-                                                                <Col>
-                                                                    <UncontrolledDropdown direction='start'>
-                                                                        <DropdownToggle tag="button" className="btn btn-light btn-icon rounded-circle btn-sm">
-                                                                            <i className="ri-more-fill fs-17"></i>
-                                                                        </DropdownToggle>
-                                                                        <DropdownMenu>
-                                                                            <DropdownItem onClick={() => handleTeamClick(item)}>
-                                                                                <i className="ri-pencil-fill me-2 align-bottom text-muted"></i> Edit
-                                                                            </DropdownItem>
-                                                                            <DropdownItem onClick={() => onClickData(item)}>
-                                                                                <i className="ri-forbid-2-fill me-2 align-bottom text-muted"></i> Delete
-                                                                            </DropdownItem>
-                                                                        </DropdownMenu>
-                                                                    </UncontrolledDropdown>
-                                                                </Col>
+                                                                <UncontrolledDropdown className="col text-end">
+                                                                    <DropdownToggle tag="a" id="dropdownMenuLink2" role="button">
+                                                                        <i className="ri-more-fill fs-17"></i>
+                                                                    </DropdownToggle>
+                                                                    <DropdownMenu end>
+                                                                        <DropdownItem className="dropdown-item edit-list" href="#addmemberModal" onClick={() => handleTeamClick(item)}>
+                                                                            <i className="ri-pencil-line me-2 align-bottom text-muted"></i>Edit
+                                                                        </DropdownItem>
+                                                                        <DropdownItem className="dropdown-item remove-list" href="#removeMemberModal" onClick={() => onClickData(item)}>
+                                                                            <i className="ri-delete-bin-5-line me-2 align-bottom text-muted"></i>Remove
+                                                                        </DropdownItem>
+                                                                    </DropdownMenu>
+                                                                </UncontrolledDropdown>
                                                             </Row>
                                                         </Col>
+                                                        <Col lg={4} className="col">
+                                                            <div className="team-profile-img">
+                                                                <div className="avatar-lg img-thumbnail square-image flex-shrink-0">
+                                                                    {item.userImage != null ?
+                                                                        <img src={item.userImage} alt="" className="img-fluid d-block square-image" />
+                                                                        :
+                                                                        <div className="avatar-title text-uppercase border square-image bg-light text-primary">
+                                                                            {item.name.charAt(0) + item.name.split(" ").slice(-1).toString().charAt(0)}
+                                                                        </div>}
+                                                                </div>
+                                                                <div className="team-content">
+                                                                    <Link to="#" onClick={() => { setIsOpen(!isOpen); setSideBar(item); }}>
+                                                                        <h5 className="fs-16 mb-1">{item.name}</h5>
+                                                                    </Link>
+                                                                    <p className="text-muted mb-0">{item.designation}</p>
+                                                                </div>
+                                                            </div>
+                                                        </Col>
+
+
                                                     </Row>
-                                                    <div className="team-profile-img">
-                                                        <div className="avatar-lg img-thumbnail rounded-circle flex-shrink-0">
-                                                            {item.image_src ? <img src={item.image_src} alt="" className="img-fluid d-block rounded-circle" /> : <img src={userdummyimg} alt="" className="img-fluid d-block rounded-circle" />}
-                                                        </div>
-                                                        <div className="team-content">
-                                                            <Link to="#" onClick={() => handleTeamClick(item)}>
-                                                                <h5 className="fs-16 mb-1">{item.name}</h5>
-                                                            </Link>
-                                                            <p className="text-muted mb-0">{item.designation}</p>
-                                                        </div>
-                                                    </div>
                                                 </CardBody>
                                             </Card>
                                         </Col>
                                     ))}
+
+
                                 </Row>
-                            </div>
-                            <div className="py-4 text-center" id="noresult" style={{ display: "none" }}>
-                                <div className="avatar-md mx-auto mb-4">
-                                    <div className="avatar-title bg-primary-subtle text-primary rounded-circle fs-24">
-                                        <i className="ri-search-eye-line"></i>
+
+                                <div className="modal fade" id="addmembers" tabIndex="-1" aria-hidden="true">
+                                    <div className="modal-dialog modal-dialog-centered">
+                                        <Modal isOpen={modal} toggle={toggle} centered>
+                                            <ModalBody>
+                                                <Form onSubmit={(e) => {
+                                                    e.preventDefault();
+                                                    validation.handleSubmit();
+                                                    return false;
+                                                }}>
+                                                    <Row>
+                                                        <Col lg={12}>
+
+                                                            <input type="hidden" id="memberid-input" className="form-control" defaultValue="" />
+                                                            <div className="px-1 pt-1">
+                                                                <div className="modal-team-cover position-relative mb-0 mt-n4 mx-n4 rounded-top overflow-hidden">
+                                                                    <img src={smallImage9} alt="" id="cover-img" className="img-fluid" />
+
+                                                                    <div className="d-flex position-absolute start-0 end-0 top-0 p-3">
+                                                                        <div className="flex-grow-1">
+                                                                            <h5 className="modal-title text-white" id="createMemberLabel">{!isEdit ? "Add New Movie" : "Edit Member"}</h5>
+                                                                        </div>
+                                                                        <div className="flex-shrink-0">
+                                                                            <div className="d-flex gap-3 align-items-center">
+                                                                                <div>
+                                                                                    <label htmlFor="cover-image-input" className="mb-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Select Cover Image">
+                                                                                        <div className="avatar-xs">
+                                                                                            <div className="avatar-title bg-light border rounded-circle text-muted cursor-pointer">
+                                                                                                <i className="ri-image-fill"></i>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </label>
+                                                                                    <input className="form-control d-none" defaultValue="" id="cover-image-input" type="file" accept="image/png, image/gif, image/jpeg" />
+                                                                                </div>
+                                                                                <button type="button" className="btn-close btn-close-white" onClick={() => setModal(false)} id="createMemberBtn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div className="text-center mb-4 mt-n5 pt-2">
+                                                                <div className="position-relative d-inline-block">
+                                                                    <div className="position-absolute bottom-0 end-0">
+                                                                        <label htmlFor="member-image-input" className="mb-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Select Member Image">
+                                                                            <div className="avatar-xs">
+                                                                                <div className="avatar-title bg-light border rounded-circle text-muted cursor-pointer">
+                                                                                    <i className="ri-image-fill"></i>
+                                                                                </div>
+                                                                            </div>
+                                                                        </label>
+                                                                        <input className="form-control d-none" defaultValue="" id="member-image-input" type="file" accept="image/png, image/gif, image/jpeg" />
+                                                                    </div>
+                                                                    <div className="avatar-lg">
+                                                                        <div className="avatar-title bg-light rounded-circle">
+                                                                            <img src={userdummyimg} alt=" " id="member-img" className="avatar-md rounded-circle h-auto" />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div className="mb-3">
+                                                                <Label htmlFor="teammembersName" className="form-label">Movie Name</Label>
+                                                                <Input type="text" className="form-control" id="teammembersName" placeholder="Enter movie name"
+                                                                    name='name'
+                                                                    validate={{
+                                                                        required: { value: true },
+                                                                    }}
+                                                                    onChange={validation.handleChange}
+                                                                    onBlur={validation.handleBlur}
+                                                                    value={validation.values.name || ""}
+                                                                    invalid={
+                                                                        validation.touched.name && validation.errors.name ? true : false
+                                                                    }
+                                                                />
+                                                                {validation.touched.name && validation.errors.name ? (
+                                                                    <FormFeedback type="invalid">{validation.errors.name}</FormFeedback>
+                                                                ) : null}
+                                                            </div>
+                                                        </Col>
+                                                        <Col lg={12}>
+                                                            <div className="mb-3">
+                                                                <Label htmlFor="designation" className="form-label">Release Year</Label>
+                                                                <Input type="text" className="form-control" id="designation" placeholder="Enter movie release year" name='designation'
+                                                                    validate={{
+                                                                        required: { value: true },
+                                                                    }}
+                                                                    onChange={validation.handleChange}
+                                                                    onBlur={validation.handleBlur}
+                                                                    value={validation.values.designation || ""}
+                                                                    invalid={
+                                                                        validation.touched.designation && validation.errors.designation ? true : false
+                                                                    }
+                                                                />
+                                                                {validation.touched.designation && validation.errors.designation ? (
+                                                                    <FormFeedback type="invalid">{validation.errors.designation}</FormFeedback>
+                                                                ) : null}
+                                                            </div>
+                                                        </Col>
+                                                        <Col lg={12}>
+                                                            <div className="hstack gap-2 justify-content-end">
+                                                                <button type="button" className="btn btn-light" onClick={() => setModal(false)}>Close</button>
+                                                                <button type="submit" className="btn btn-success" id="addNewMember">{!isEdit ? "Add Movie" : "Save"}</button>
+                                                            </div>
+                                                        </Col>
+                                                    </Row>
+                                                </Form>
+                                            </ModalBody>
+                                        </Modal>
                                     </div>
                                 </div>
-                                <h5 className="text-muted">Sorry! No Result Found</h5>
+
+                            </div>
+                            <div className="py-4 mt-4 text-center" id="noresult" style={{ display: "none" }}>
+                                <lord-icon src="https://cdn.lordicon.com/msoeawqm.json" trigger="loop" colors="primary:#405189,secondary:#0ab39c" style={{ width: "72px", height: "72px" }}></lord-icon>
+                                <h5 className="mt-4">Sorry! No Result Found</h5>
                             </div>
                         </Col>
                     </Row>
